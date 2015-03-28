@@ -1,0 +1,15 @@
+@node sensors
+@section sensors
+@itemize @bullet
+@item outputtype - can be set to:
+@itemize @bullet
+@item filtered - data is filtered (lower noise) but not calibrated
+@item filteredcalibrate - data is filtered and calibrated
+@item raw - raw data
+@item rawcalibrate - raw data with calibration applied
+@end itemize
+@item failure - set to true if the sensor is no longer providing data
+@item output - read from this accessor directly to read sensor data
+@item inputrate - the rate (in hz) that the sensor data is being read
+@item outputrate - the rate (in hz) that the sensor data should be displayed, set this to the desired value.
+@end itemize

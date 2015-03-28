@@ -1,0 +1,91 @@
+ATMEL AT90USB Datasheet (7593D-AVR-07/06)
+
+There exists some errors or at least unclear statements as listed below:
+
+21.4 General Operating Modes
+21.4.2 Power-on and reset (page 253)
+The SPDCONF bits can be set by software.
+!!! QUESTION: What is SPDCONF
+
+Figure 21-12. USB Endpoint/Pipe Interrupt vector sources (page 256)
+Figure 22-5. USB Device Controller Endpoint Interrupt System (page 280)
+TXOUTE UEIENX.3
+!!! Name TXOUTE should be RXSTPE for Device-Mode
+
+Figure 21-12. USB Endpoint/Pipe Interrupt vector sources (page 256)
+Figure 23-5. USB Device Controller Pipe Interrupt System (page 300)
+UPIEN
+!!!Correct Name of register is UPIENX
+
+21.6.1 Device mode (page 258)
+!!! UDSS register mentioned in text does not exists.
+
+21.6.2 Host mode (page 259)
+When the USB interface is configured in device mode, internal Pull Down resistors are activated
+on both UDP UDM lines and the interface detects the type of device connected.
+!!! It should be "...configured in host mode,..."
+
+21.12.1 USB general registers (page 264)
+4 - OTGPADE: OTG Pad Enable
+Set to enable the OTG pad. Clear to disable the OTG pad.
+!!! This bit seems to be important to activate the USB device, but its not clear
+!!! why and what OTG Pad is.
+
+21.13 USB Software Operating modes (page 267)
+Wait USB pads regulator ready state
+!!! How to detect ready state?
+
+21.13 USB Software Operating modes (page 268)
+Set USB suspend clock
+Clear USB suspend clock
+!!! What is suspend clock
+
+22.6 Endpoint selection (page 270)
+Clearing EPNUMS
+!!! Register EPNUMS does not exists!
+
+Figure 22-2. Endpoint activation flow: (page 271)
+the Not Yet Disable feature
+!!! What is the Not Yet Disable feature
+
+22.13 CONTROL endpoint management (page 274)
+CONTROL endpoints should not be managed by interrupts, but only by polling the status bits.
+!!! What does this mean? Using interrupts seems to work fine?
+
+22.12.2 STALL handshake and Retry mechanism (page 274)
+The Retry mechanism has priority over the STALL handshake. A STALL handshake is sent if the
+STALLRQ request bit is set and if there is no retry required.
+!!! What is the "Retry mechanism"?
+
+22.19.1 USB device general registers (page 281)
+2-0 - FNUM10:8 - Frame Number Upper Flag
+FNUM is updated if a corrupted SOF is received.
+!!! Strange statement!
+
+22.19.2 USB device endpoint register
+6-0 - EPRST6:0 - Endpoint FIFO Reset Bits
+Then, cleared by software to complete the reset operation and start using the endpoint.
+!!! Is clearing by software really necessary? In most similar cases this is done by hardware!
+
+22.19.2 USB device endpoint registers (page 285) ***NEW
+Register UECONX: Bit 5 - STALLRQ - STALL Request Handshake Bit is marked WRITE-ONLY
+!!! This seems to be wrong, we can read this bit. Reading is necessary to query stalled state!
+
+22.16 Isochronous mode (page 278)
+For Isochronous IN endpoints, it is possible to automatically switch the banks on each start of
+frame (SOF). This is done by setting ISOSW. The CPU has to fill the bank of the endpoint; the
+bank switching will be automatic as soon as a SOF is seen by the hardware.
+!!! ISOSW is mentioned here and in the 31. Register Summary (page 414), but no where else.
+!!! In  Register Summary (page 414) Flags SOSW, AUTOSW, NYETSDIS are mentioned, but not explained!
+
+25.4 Prescaling and Conversion Timing (page 319) ***NEW
+setting the ADHSM bit in ADCSRB allows an increased ADC clock frequency
+!!! ADHSM bit is mentioned multiple times in datasheet, but it does not exist.
+
+25.8.2 ADC Control and Status Register A - ADCSRA (332)  ***NEW
+Bits 2:0 - ADPS2:0: ADC Prescaler Select Bits
+These bits determine the division factor between the XTAL frequency and the input clock to the ADC.
+!!! Input clock of ADC prescaler seems to be not the XTAL frequency, but the (already prescaled)
+!!! mpu frequency.
+
+Stefan Salewski, 20-MAR-2007

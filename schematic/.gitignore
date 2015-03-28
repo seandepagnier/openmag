@@ -1,0 +1,15 @@
+*.log
+*.save
+*~
+*-
+PCB*
+*.bak*
+*.cmd
+*.net
+.refdes_renum_uptodate
+*.zip
+*.bz2
+*.png
+*_schematic
+*_layout
+\#*\#

@@ -1,0 +1,13 @@
+If it is possible to detect the position of stars as well as knowing the
+current time, it is possible to detect geographic location.
+
+This calculation uses pitch, roll, and possibly yaw (depending on how the
+inferometer is aligned) to scan for stars.  The star view should be aligned
+with 2 stars, however, a third is required to eliminate the last two
+orientations unless the magnetometer aids the calculation.  Depending on the
+precision of the data, more stars may be needed to get a "fix"
+
+It may be possible to track time by measuring earth and moon gravitational
+changes as well (requires at least 20-bit accelerometer data to track the
+moon).  It is possible to also calculate roughly the position in the sky
+of the body.

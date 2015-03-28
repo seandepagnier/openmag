@@ -1,0 +1,10 @@
+@node DeviceData
+@chapter DeviceData
+
+This chapter describes all of the data available on the device.  It assumes use of the dataclient. It should be obvious how to use the DataViewer as well.  Each section begins with the name of the directory.
+
+The openmag project operates an accelerometer, magnetometer, and temperature sensor.  If the device is to be used while moving, the calculated pitch, roll, and yaw are invalid due to lack of gyro compensation.  If the down vector is not known, the magnetic vector output is still useful as it is not affected by acceleration, but yaw calculation is impossible.
+
+The accelerometers are in sensor coordinates, the calibrated magnetometer is aligned to the accelerometer, so both calibrated outputs are in sensor coordinates.  Box coordinates are another coordinate frame which can be defined by the user, there is a rotation to get from sensor to box coordinates.  There is also a rotation to get from sensor to laser coordinates.
+
+Do not be alarmed if you do not have all of the accessors listed, or you have accessors which are not listed here, they may change depending on software version.

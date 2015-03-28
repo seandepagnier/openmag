@@ -1,0 +1,28 @@
+Adds support for fopen, fclose, fseek, ftell, and rewind to avr-libc.
+
+A connection from the uart of the device to a pc must be made, and the program
+uart-host is run on the pc (compile with "make host")
+"uart-host -d /dev/ttyS0 -b 300" will use ttyS0 at 300 baud.
+
+Right now the makefile is set for an atmega 164p with parallel port programmer.
+It should be modified for your needs.  The uart registers are also set to the
+first uart on this device (it has 2)  They may need to be modified for devices
+with only one uart, or to use the second uart instead.
+
+All actions are redirected from the program on the device to the host program,
+so files will be created on the host system relative to the location the host
+program is run.
+
+At startup, uartfs_init must be called with a baud rate.  This automatically
+opens stdin, stdout, and stderr for use.  (see demo.c)
+
+NOTE: Writing from the device to the pc is much faster than reading, to avoid
+buffering on the device, a read command byte is sent for each byte read.
+
+To reduce ram usage, by default only 10 streams can be opened at a time.  This
+number can be easily modified (see uart.c line 9)
+
+Written by Sean D'Epagnier March 2007
+
+If any bugs are found, or improvements are made, let me know!
+(email sean at depagnier.com)

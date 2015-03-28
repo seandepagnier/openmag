@@ -1,0 +1,128 @@
+\input texinfo @c -*-texinfo-*-
+@c @title Pointer Device Datasheet
+@c genindex description: characteristics and technical information
+@center @titlefont{Pointer Device}
+@center @image{imgs/pointer}
+
+@ifnottex
+@node Top
+@top Pointer Datasheet
+@end ifnottex
+
+@menu
+* Characteristics::
+* Parts::
+* Components::
+* DeviceData::
+@end menu
+
+@page
+@center @titlefont{Inside the Box}
+@center @image{imgs/pointerboard}
+@page
+@include DatasheetCharacteristics.texih
+
+@node Parts
+@chapter Parts
+@center @titlefont{Parts}
+
+@itemize
+@item surpac CA-8 3 button version (surpac.com)
+@item usb Cable, connected to device
+@end itemize
+
+@node Components
+@chapter Components
+
+@itemize
+@item at90usb1287
+@item sca3000-d01
+@item ad7799
+@item hmc1052
+@item hmc1051z
+@item irf7905 (x2)
+@item fan2503S30
+@end itemize
+
+@include DeviceDataIntro.texih
+
+@menu
+* root:: root
+* mouse:: mouse
+* joystick:: joystick
+* settings:: settings
+* stats:: stats
+* calc:: calc
+* calibration:: calibration
+* sensors:: sensors
+@end menu
+
+@include DeviceDataRoot.texih
+
+@node mouse
+@section mouse
+@itemize @bullet
+@item enableshakewheel -- if set, then shaking the mouse can scroll up and down
+@item horizontalorientation -- set which axis is used for horizontal movement, default is x
+@item verticalorientation -- set which axis is used for vertical movement, default is x
+@item horizontalsensitivity -- the sensitivity for horizontal movement, set to negative to reverse
+@item verticalsensitivity -- the sensitivity for vertical movement, set to negative to reverse
+@item scrollsensitivity -- sensitivity for scrolling
+@end itemize
+
+@node joystick
+@section joystick
+
+The device can function as a 6 axis 3 button joystick.
+
+@itemize @bullet
+@item rotation
+@itemize @bullet
+The rotation allows for an arbitrary rotation to be entered by the user for joystick data.  If you enter 0 for the angle, then there is no rotation.  This allows the joystick to work in arbitrary coordinates.
+@item angle -- angle in degrees to rotate coordinates
+@item x -- x component of vector to rotate around
+@item y -- y component of vector to rotate around
+@item z -- z component of vector to rotate around
+@end itemize
+@item axis0-axis5 -- the axis of joystick to setup
+@itemize @bullet
+@item input -- what this axis gets input from, can be roll, pitch, yaw, x, y, or z.  Pitch is the angle between the x axis and the currently measured data.  Roll is the angle rotated around the x axis.  Yaw uses the other sensor to tilt-compensate an angle.
+@item sensor -- which sensor to use?  accel, mag, or none to disable
+@item sensitivity -- increase to make more sensitive, make negative to reverse direction.
+@end itemize
+@end itemize
+
+@node settings
+@section settings
+
+@itemize @bullet
+@include DeviceDataSettingsMag.texih
+@item usbcdcenabled -- the usb device acts like a virtual com port cdc device
+@item usbmouseenabled -- the usb device acts like a mouse
+@item usbjoystickenabled -- the usb device acts like a joystick
+@item uartbaudrate -- the baud rate of the uart, (default 38400)
+@item button0outputsinfo -- if set the pitch, roll, yaw, dip, incline, and azimuth are reported when the first button is pressed
+@item truenorth -- if set the declination is subtracted from the yaw
+@item usemagdip -- use alternate mag calibration
+@end itemize
+
+Note:  Do not enable more than one of usbcdcenabled, usbmouseenabled, or usbjoystickenabled if you are connected to a computer running windows.
+
+Enabling mouse and especially joystick makes the device run slower which will slow down the autocalibration algorithms as well as reduce sensor input rates.  Disable these modes if you are not using them.
+
+@include DeviceDataStats.texih
+
+@include DeviceDataCalc.texih
+
+@include DeviceDataCalibration.texih
+
+@include DeviceDataSensors.texih
+
+The temperature sensor provides
+@itemize @bullet
+@item outputtype - can be set to F, C, or raw.  This specifies the units to use for temperature.
+@item output - get this to read the temperature
+@item autooutput - if set to true the temperature will continously output
+@end itemize
+
+@bye

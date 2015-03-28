@@ -1,0 +1,5 @@
+schematics micro.sch usbbatt.sch usbminib.sch regulator.sch pwrcontrol.sch noswitch.sch sca.sch hmcmsop.sch pointerbuttons.sch bluetooth.sch scp.sch isp.sch hotwire.sch
+output-name pointer
+elements-dir footprints
+pcb-elements packages
+

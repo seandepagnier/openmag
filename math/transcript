@@ -1,0 +1,29 @@
+For the ellipse in the form
+
+x = r*cos(t)
+y = s*sin(t-u)
+
+the maximum x and y values are determined by r and s.
+That is, the maximum value of the y coordinate will
+be |s| and that of the x coordinate will be |r|.
+
+You can determine the maximum value of the y coordinate
+from the second form of the ellipse by solving for y in
+terms of x (you'll get two equations, one for each of
+the positive and negative roots), and finding the
+inflection points as usual: differentiate, set to zero,
+solve for variable.  Expressing x in terms of y and
+repeating the method will similarly yield an expression
+for the maximum x value.
+
+Using this method, for positive r and s I came up with
+
+r = 2*sqrt(c/(4ac - b^2)
+s = 2*sqrt(a/(4ac - b^2)
+
+The maximum x value (that is, r) occurs when cos(t) = 1.
+This will happen when t = 0.  When t = 0 we also have
+y = s*sin(-u).  Solve ax^2 + bxy + cy^2 = 1 for y
+when x = r (the maximum x-value) and equate.  I found
+
+u = arcsin(b/(2*sqrt(ac))

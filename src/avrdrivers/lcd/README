@@ -1,0 +1,40 @@
+This is a nonblocking lcd driver for HD44780 lcds
+Copyright (C) 2007 Sean D'Epagnier <sean@depagnier.com>
+
+There is a blocking version (lcd-blocking.h) included which uses
+less ram, and program space, and doesn't require lcd_poll to be called.
+
+Typically lcd.h is included by one file which defines various
+constants to configure the lcd eg:
+
+#define LCDDBPORT PORTA
+#define LCDDBPIN PINA
+#define LCDDBDDR DDRA
+#define LCDDBMASK 0xf0
+#define LCDDBSHIFT 4            /* how many bits left to shift
+                                ** a DB nibble to get it to line up */
+#define LCDRPORT PORTC
+#define LCDRDDR DDRC
+#define LCDR (_BV(PC5))
+
+#define LCDRSPORT PORTC
+#define LCDRSDDR DDRC
+#define LCDRS (_BV(PC4))
+
+#define LCDEPORT PORTA
+#define LCDEDDR DDRA
+#define LCDE (_BV(PA3))
+
+#define LCD_NUM_COLS 20
+#include <lcd/lcd.h>
+#include <lcd/lcdprintf.h>
+
+lcdprintf.h may be included in any files that want to use lcd_printf or
+lcd_setLine.
+
+It is possible to call lcd_printf([row], [col], fmt, ...)
+to display text on the lcd.  This call does not ever block.
+Instead, lcd_poll(); must be called periodically at no faster
+rate than the lcd can handle.  Each time lcd_poll is called it attempts
+to perform the next step toward updating the display without blocking.
+It is common to place lcd_poll in a timer interrupt.

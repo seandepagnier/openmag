@@ -1,0 +1,6 @@
+You will need to install tex to generate documentation.
+
+On ubuntu the packages needed are:
+
+texlive
+texlive-generic-recommended

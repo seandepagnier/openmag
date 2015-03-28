@@ -1,0 +1,3 @@
+@node root
+@section root
+This directory contains all of the other directories.  It contains the ``softwareversion'' accessor for determining what software version you are using.

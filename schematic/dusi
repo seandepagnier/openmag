@@ -1,0 +1,5 @@
+schematics micro2561.sch usbbatt.sch usbb.sch regulator.sch pwrcontrol.sch switch.sch sca.sch hmcmsop.sch lcd.sch keypad.sch eeprom.sch scp.sch bluetooth.sch hotwire.sch isp.sch uart.sch
+output-name dusi
+elements-dir footprints
+pcb-elements packages
+

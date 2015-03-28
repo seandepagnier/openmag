@@ -1,0 +1,235 @@
+\input texinfo @c -*-texinfo-*-
+@c %**start of header
+@setfilename DUSIDatasheet.info
+@settitle DUSIDatasheet
+@c %**end of header
+@c @title DUSI Datasheet
+@c genindex description: characteristics and technical information
+@center @titlefont{DUSI}
+@center @image{imgs/dusi}
+
+@ifnottex
+@node Top
+@top DUSIDatasheet
+@end ifnottex
+
+
+@menu
+* Characteristics::
+* Backlight:: 
+* Battery::
+* Parts::
+* Components::
+* DeviceData::
+* Menu:: Menu
+@end menu
+
+@include DatasheetCharacteristics.texih
+Weight: 315g
+Weight without protective cover 144g
+
+@node Backlight
+@chapter Backlight
+@center @titlefont{Backlight}
+@multitable @columnfractions .6 .2 .2
+@headitem  Parameter @tab Value @tab Unit
+@item White Backlight Current @tab 8 @tab mA
+@item Green Backlight Current @tab 4 @tab mA
+@end multitable
+
+Note:  On older DUSIv1 sometimes the backlight has issues because of the way the connector is placed.  Please email me for a free replacement if the backlight is not functioning.
+
+@node Battery
+@chapter Battery
+@center @titlefont{Battery}
+
+Battery charges from usb with a max of 100mA.
+
+@multitable @columnfractions .6 .2 .2
+@headitem  Parameter @tab Value @tab Unit
+@item Battery Type @tab @code{3.6v lipo} @tab
+@item Battery Capacity @tab 250 @tab mAH
+@item Battery Charge Current @tab 100 @tab mA
+@item Charge time @tab 4 @tab hours
+@item Run time @tab >10@math{^1} @tab hours
+@end multitable
+
+1 decreases with age and backlight usage
+
+@node Parts
+@chapter Parts
+@center @titlefont{Parts}
+
+@itemize
+@item 16key keypad
+@item 132x64 lcd with green and white backlight
+@item 70 series box with protective case (boxenclosures.com)
+@item laser pointer
+@item on/off switch
+@item usb connector
+@end itemize
+
+@node Components
+@chapter Components
+
+@itemize
+@item at90usb1287
+@item sca3000-d01
+@item ad7799
+@item hmc1052
+@item hmc1051z
+@item irf7905 (x2)
+@item max1811
+@item fan2503S30
+@item ra8816 lcd
+@end itemize
+
+Various capacitors resistors and connectors see schematic for details
+
+@include DeviceDataIntro.texih
+
+The DUSIv1 does not provide many accessors (it is stripped down from lack of flash memory)
+
+@menu
+* root:: root
+* settings:: settings
+* stats:: stats
+* power:: power
+* calc:: calc
+* calibration:: calibration
+* sensors:: sensors
+* survey:: survey
+@end menu
+
+@include DeviceDataRoot.texih
+
+@node settings
+@section settings
+
+@itemize @bullet
+@include DeviceDataSettingsMag.texih
+@item contrast -- the lcd contrast
+@item reversevideo -- invert the lcd contents?
+@item whitebacklight -- control the white backlight
+@item greenbacklight -- control the green backlight
+@end itemize
+
+@include DeviceDataStats.texih
+
+@node power
+@section power
+
+@itemize @bullet
+@item battery
+
+@itemize @bullet
+@item voltage - the battery voltage
+@item chargedvoltage - the voltage of the battery when it was last charged
+@item dischargedvoltage - the voltage of the battery when it was last discharged
+@item state - the current state of the battery
+@end itemize
+
+@item stillsleeptype - sleep type to use when the device is still
+@item stillsleeptimeout - time the device must be still before sleeping
+@item buttonidlesleeptype - sleep type to use when no buttons are pressed
+@item buttonidletimeout - time the device must not have a button pressed before sleeping
+@item wakeonmotion - if set to true, the device will wake on motion when it sleeps from being still.  It will not wake from motion from a button idle timeout.
+@item lastsleeptype - the last type of sleep the device was in, used for debugging
+@end itemize
+
+Note: the device does not sleep when plugged in via USB.
+
+The sleep types supported:
+@itemize @bullet
+@item none - sleep disabled
+@item idle - sensors and processor stopped, device consumes about 15% of normal power.  Can wake up from the most different ways.
+@item powersave - shutdown everything possible while still keeping the LCD and backlight on (if available)
+@item powerdown - shutdown everything to lowest possible power consumption.  Uses about 0.5% of normal operating power.
+@end itemize
+
+Note: If wakeonmotion is set, because extra power is needed to be able to wake from motion, and the device sleeps from being still, the device will consume about 1.5% of normal operating power in powerdown mode rather than 0.5%.
+
+@include DeviceDataCalc.texih
+
+@include DeviceDataCalibration.texih
+
+@include DeviceDataSensors.texih
+
+@node survey
+@section survey
+The device can store various measurements
+@itemize
+@item stats - get for statistics about the measurements
+@item measurements - get to dump all of the measurements
+@item usebacksights - set to enable automatic backsights when surveying
+@end itemize
+
+
+@node Menu
+@chapter Menu
+
+The menu on the device is simple, press the key of the number letter or symbol which next to the word or icon you want to perform.  The main menu allows you to select a function for the device.  It is always possible to press 'D' repeatedly to eventually return to the Main Menu.  It is usually possible to press 'A' to read information about the current page.
+
+@section Compass
+The compass shows a 3d compass as well as other statistics.
+
+@section Survey
+
+The survey system allows you to take measurements of incline and azimuth using the laser.  These measurements may be recorded.  Typically there is enough storage for at least 500 shots.  It is also possible to enter attributes to go with each measurement (such as distance between survey points) but not required.
+
+To make a measurement from the survey menu, hold '1' down and the laser will turn on, when you release it, a second later the laser will go off and the current reading is locked.
+
+Once held, you can store the measurement with '2'.  If this should be a backsight for the last shot, press '3' to toggle to backsight mode.  If you want to enter distance LRUD, or other parameters, enter the attributes with '4' before storing.
+
+Data required to store a shot, the minimum is 5 bytes for header, incline and azimuth, additional attributes add:
+@itemize @bullet
+@item 3 bytes  backsight incline and azimuth
+@item 10 bytes - out of order stations penalty
+@item 2 bytes - distance
+@item 4 bytes - lrud
+@end itemize
+
+@multitable @columnfractions .2 .1 .1 .1 .1 .2
+@headitem Name  To @tab Dist @tab Incline @tab Azimuth @tab LRUD @tab bytes
+@item AFF-001 AFF-002 @tab - @tab +42.2 @tab 135.3 @tab @tab 15
+@item AFF-002 AFF-003 @tab - @tab -26.7 @tab 167.4 @tab @tab 5
+@item AFF-003 AFF-004 @tab 23.4 @tab +35.2 @tab 302.7 @tab @tab 7
+@item AFF-003 AFF-005 @tab - @tab -42.1 @tab 253.9 @tab 1 1 2 3 @tab 19
+@end multitable
+
+
+The first measurement uses an extra 10 bytes because there is no measurement before it.  The fourth measurement uses 5 bytes normally, 4 more for lrud, and 10 more because the number is not sequential.
+
+The measurements can be downloaded to a computer, or viewed on the device.
+
+@section Pedometer
+The pedometer uses a simple algorithm to detect steps by sensing verticle motion.  It counts steps with a given tolerance.
+
+@section Gaussmeter
+The gaussmeter allows you to measure magnetic fields in gauss.  There is support for absolute, relative and vector magnetometer modes.
+
+@section Stats
+View various statistics about the running program.
+
+@section Calibration
+Proper calibration is extremely important for accurate measurements.  The device can be re-calibrated at any time without any additional equipment.  The on-screen help system explains what each step of calibration does.
+
+@section Settings
+There are a few settings that can be modified on the device, there are far more settings that can be modified via the dataclient.
+
+@section Plots
+This mode allows you to plot the sensor data directly on the DUSI screen.  You may enter mathematical expressions using various sensor inputs as well.
+
+@section Vector View
+This mode simply displays vectors pointing in the direction of the accelerometer and magnetometer vectors.
+
+@section Advanced Survey
+This mode gives the user the ability to perform surveys in a linear state machine and gives error checking (FS/BS compare)
+
+@section Calculator
+This mode is simply a calculator.  It peforms basic expression parsing as well as reverse-polish notation.  Basic trig functions are supported.
+
+@section Sphere Painter
+This mode allows the user to draw arcs using the laser pointer, then view and rotate them in 3d on the screen.
+
+@bye

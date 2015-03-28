@@ -1,0 +1,69 @@
+v 20080706 1
+C 2200 700 1 0 0 gnd-1.sym
+C 2400 1000 1 90 0 resistor-1.sym
+{
+T 2100 1500 5 10 1 1 90 0 1
+value=1M
+T 2100 1200 5 10 1 1 90 0 1
+refdes=R7
+T 2400 1000 5 10 0 0 0 0 1
+footprint=603
+}
+C 2400 1900 1 90 0 resistor-1.sym
+{
+T 2100 2400 5 10 1 1 90 0 1
+value=1M
+T 2100 2100 5 10 1 1 90 0 1
+refdes=R8
+T 2400 1900 5 10 0 0 0 0 1
+footprint=603
+}
+C 2100 2000 1 180 0 output-2.sym
+{
+T 1200 1800 5 10 0 0 180 0 1
+net=BATTV:1
+T 1200 1900 5 10 1 1 180 1 1
+value=BATTV
+}
+N 2300 1900 2100 1900 4
+C 2000 2300 1 0 0 input-2.sym
+{
+T 2000 2500 5 10 0 0 0 0 1
+net=LASER:1
+T 3300 2100 5 10 1 1 0 7 1
+value=LASER
+}
+C 700 2700 1 0 0 input-2.sym
+{
+T 700 2900 5 10 0 0 0 0 1
+net=BATTVCC:1
+T 1200 2800 5 10 1 1 0 7 1
+value=BATTVCC
+}
+N 2100 2800 3400 2800 4
+C 3000 900 1 0 0 input-2.sym
+{
+T 3000 1100 5 10 0 0 0 0 1
+net=BEEPER:1
+T 3500 1000 5 10 1 1 0 7 1
+value=BEEPER
+}
+C 4400 200 1 0 0 connector2-2.sym
+{
+T 5100 1500 5 10 1 1 0 6 1
+refdes=BEEPER1
+T 4700 1450 5 10 0 0 0 0 1
+device=CONNECTOR_2
+T 4700 1650 5 10 0 0 0 0 1
+footprint=CONNECTOR 2 1
+}
+C 3400 2000 1 0 0 connector2-2.sym
+{
+T 4100 3300 5 10 1 1 0 6 1
+refdes=LASER1
+T 3700 3250 5 10 0 0 0 0 1
+device=CONNECTOR_2
+T 3700 3450 5 10 0 0 0 0 1
+footprint=CONNECTOR 2 1
+}
+C 4300 300 1 0 0 gnd-1.sym

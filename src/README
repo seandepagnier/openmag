@@ -1,0 +1,83 @@
+to build:
+./configure
+make install
+
+this puts all the binaries and shared librariess in src/bin
+
+
+Normally you should use a posix system to build, however it is possible to build under a windows system, see the Win32 section for details.
+
+You will need avr-gcc and gcc.  If you do not have avr-gcc, or certain other dependencies, it is possible to run the scripts in toolchains/avr to download, compile and install the toolchain.  You will need to install texinfo to build the toolchain.
+
+To build everything, you will need:
+unix (cygwin should work)
+glut
+qt
+libusb
+readline
+fftw3-dev
+gcc
+avr-gcc
+
+On ubuntu the packages are:
+libreadline-dev (dataclient)
+libglut3-dev (and dependencies for menuhost and glscope)
+g++ libqt4-dev (dataviewer)
+
+These packages will pull additional needed dependencies.
+
+To build everything running on the target you only need avr-gcc, the other dependencies are used in various tools.
+
+The current build system supports:
+
+make          - build executable or image
+make clean    - remove any generated files
+make install  - copy executables to bin directory
+make upload   - for target images only, avr109 bootloader, reflash the device
+                       (more on programming, see app.mk)
+make load_cdc_bootloader - load the cdc bootloader via isp (I use the cdc bootloader for development)
+make dfu      - program flash, and eeprom to a device with the dfu bootloader
+make load_dfu_bootloader - load the dfu bootloader via isp
+make prog     - program using isp
+
+the directories that use Qt (eg: dataviewer) use, qmake
+
+NOTE: on windows you must invoke mingw32-make to build the dataviewer
+
+To speed up clean builds, if you have ccache installed, simply define the
+environment variable USE_CCACHE eg: "USE_CCACHE=1 make"
+
+The directories:
+
+avrdrivers -- contains specific drivers and code used on avr
+bin -- contains all binaries and librarys from "make install"
+calibration -- library to autocalibrate sensors
+calibrationhost -- application which uses the calibration library to run the algorithms on a posix system 
+data -- library for the data interface
+dataclient -- tool to connect to devices or data servers, and provide tab-completion and other features
+dataparser -- tool to read source code and generated code needed to provide data interface
+dataviewer -- graphical Qt application which sits on top of the dataclient and provides a treeview
+gfx -- monochrome graphics library
+glscope -- opengl glut application which graphs data sent to it via stdin like an oscilliscope
+hacks -- extra code that is not maintained
+host -- code to provide emulation and only runs on posix systems
+include -- include header files and drivers
+linalg -- linear algebra library
+make -- build system written in gmake
+menu -- library to display data using the gfx library and interact with a user for the sensors
+menuhost -- emulation program to run everything including the menu system on a posix system using opengl glut for graphics
+myusb -- usb driver for at90usb microcontrollers
+old -- useful code, but not updated or used much
+pointer -- main program for the pointer device
+survey -- main program for the survey device
+toolchains -- directory with scripts for building needed compilers
+win32 -- extra crap for win32
+
+
+Win32
+
+So far building for windows has only been done for a few applications under the cygwin build environment.  For the dataviewer, you will neet qt-win-opensource edition as well as mingw.  I have used the command:
+
+PATH=/cygdrive/c/MinGW/bin/:$PATH mingw32-make release
+
+To build the dataviewer on windows, the qt bin directory is already in the path

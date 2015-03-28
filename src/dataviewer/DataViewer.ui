@@ -1,0 +1,235 @@
+<ui version="4.0" >
+ <class>DataViewer</class>
+ <widget class="QMainWindow" name="DataViewer" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>517</width>
+    <height>700</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Data Viewer</string>
+  </property>
+  <property name="windowIcon" >
+   <iconset resource="DataViewer.qrc" >:/DataViewerIcon.png</iconset>
+  </property>
+  <widget class="QWidget" name="centralwidget" >
+   <layout class="QGridLayout" >
+    <item row="0" column="0" >
+     <widget class="QSplitter" name="splitter_2" >
+      <property name="orientation" >
+       <enum>Qt::Vertical</enum>
+      </property>
+      <widget class="QGroupBox" name="groupBox_3" >
+       <property name="title" >
+        <string>Tree</string>
+       </property>
+       <layout class="QGridLayout" >
+        <item row="0" column="0" colspan="5" >
+         <widget class="DataTree" name="tree" >
+          <property name="sortingEnabled" >
+           <bool>true</bool>
+          </property>
+          <column>
+           <property name="text" >
+            <string>name</string>
+           </property>
+          </column>
+         </widget>
+        </item>
+        <item row="1" column="0" >
+         <widget class="QPushButton" name="treePopulateButton" >
+          <property name="text" >
+           <string>Populate</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1" >
+         <widget class="QPushButton" name="treeGetValuesButton" >
+          <property name="text" >
+           <string>Get Values</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2" >
+         <widget class="QPushButton" name="treeGetSelectedValuesButton" >
+          <property name="text" >
+           <string>Get Selected Values</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="3" >
+         <widget class="QPushButton" name="treeStopButton" >
+          <property name="text" >
+           <string>Stop</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="4" >
+         <widget class="QLabel" name="treeStatusLabel" >
+          <property name="text" >
+           <string>startup</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QFrame" name="frame" >
+       <property name="frameShape" >
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="frameShadow" >
+        <enum>QFrame::Raised</enum>
+       </property>
+       <layout class="QGridLayout" >
+        <item row="0" column="0" >
+         <widget class="QSplitter" name="splitter" >
+          <property name="orientation" >
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <widget class="QGroupBox" name="groupBox_2" >
+           <property name="title" >
+            <string>Console</string>
+           </property>
+           <layout class="QGridLayout" >
+            <item row="0" column="0" colspan="2" >
+             <widget class="ConsoleWidget" native="1" name="console" />
+            </item>
+            <item row="1" column="0" >
+             <widget class="QPushButton" name="respawnButton" >
+              <property name="text" >
+               <string>Respawn</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1" >
+             <widget class="QPushButton" name="consoleClearButton" >
+              <property name="text" >
+               <string>Clear</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QGroupBox" name="groupBox" >
+           <property name="title" >
+            <string>Output</string>
+           </property>
+           <layout class="QGridLayout" >
+            <item row="0" column="0" colspan="3" >
+             <widget class="ConsoleWidget" native="1" name="output" />
+            </item>
+            <item row="1" column="0" >
+             <widget class="QCheckBox" name="lockOutputBox" >
+              <property name="text" >
+               <string>Lock</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1" >
+             <widget class="QPushButton" name="outputSaveButton" >
+              <property name="text" >
+               <string>Save</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="2" >
+             <widget class="QPushButton" name="outputClearButton" >
+              <property name="text" >
+               <string>Clear</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menuBar" >
+   <property name="geometry" >
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>517</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuSetup" >
+    <property name="title" >
+     <string>&amp;Setup</string>
+    </property>
+    <addaction name="actionSettings" />
+    <addaction name="separator" />
+    <addaction name="actionExit" />
+   </widget>
+   <widget class="QMenu" name="menu_Help" >
+    <property name="title" >
+     <string>&amp;Help</string>
+    </property>
+    <addaction name="action_About" />
+    <addaction name="actionAbout_Qt" />
+   </widget>
+   <addaction name="menuSetup" />
+   <addaction name="menu_Help" />
+  </widget>
+  <action name="actionFlash_Device" >
+   <property name="text" >
+    <string>&amp;Upload to device</string>
+   </property>
+  </action>
+  <action name="actionFlash_eeprom" >
+   <property name="text" >
+    <string>&amp;Download from Device</string>
+   </property>
+  </action>
+  <action name="actionSettings" >
+   <property name="text" >
+    <string>&amp;Settings</string>
+   </property>
+  </action>
+  <action name="actionExit" >
+   <property name="text" >
+    <string>E&amp;xit</string>
+   </property>
+  </action>
+  <action name="action_About" >
+   <property name="text" >
+    <string>&amp;About</string>
+   </property>
+  </action>
+  <action name="actionAbout_Qt" >
+   <property name="text" >
+    <string>About &amp;Qt</string>
+   </property>
+  </action>
+  <action name="actionProgrammer" >
+   <property name="text" >
+    <string>&amp;Programmer</string>
+   </property>
+  </action>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>ConsoleWidget</class>
+   <extends>QWidget</extends>
+   <header>ConsoleWidget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>DataTree</class>
+   <extends>QTreeWidget</extends>
+   <header>DataTree.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources>
+  <include location="DataViewer.qrc" />
+ </resources>
+ <connections/>
+</ui>

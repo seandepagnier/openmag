@@ -1,0 +1,37 @@
+2pin parts are resistors and capacitors, assumed
+total cost of .2 to solder and .05 cents each.
+
+             part    solder  total
+ACCEL:
+sca3000-D01  20.25   1.8     22.05
+2pin (2)       .1     .4       .5
+total        20.35   2.2     22.55
+
+MAG:
+ad7799       5.94    1.6     7.54
+hmc1052      5       1       6
+hmc1051z     5.2     1.2     6.4
+irf7509      1.45     .8     2.25
+2pin (6)      .3     1.2     1.5
+total       17.89    5.8    23.69
+
+USB
+connector    .45     .6      1.05
+xtal         .49     .3       .79
+2pin         .15     .6       .75
+total       1.09    1.5      2.59
+
+MICRO (pick one)
+atmega644    4.6     4.4    9
+atmega128    8.75    6.4    15.15
+at90USB1287 11.03    6.4    17.43
+
+BOX
+lcd          2      1.8      3.8
+lcddiode     .1     .2       .3
+laser        7.85    .3      8.15
+battery      2       .3      2.3
+charger       .85    .5      1.35
+regulator     .85    .5      1.35
+2pin(3)       .15    .6       .75
+total       13.96   4.2     18

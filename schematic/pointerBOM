@@ -1,0 +1,32 @@
+R1 (603) - 100k
+R2 (603) -  10k
+R3 (603) - 200
+R4 (603) -  22
+R5 (603) -  22
+R7 - 100k
+R8 - 100k
+
+C1 (603) - .1uF
+C2 (805) - 10uF
+C3 (603) -  1uF
+C4 (603) -  1uF
+C5 (603) - 22pF
+C6 (603) - 22pF
+C7 (603) -  1uF
+C9 (805) - 10uF
+C10 (805)- 10uF
+C11- 10uF
+
+S1, S2, S3 - button (TL1105AF250Q)
+
+U1 (tssop16) - ad7799
+U2 (ssop8) - hmc1051z
+U5 (18 pads)- sca3000-d01
+U7 (4 pads)- crystal CS20 8.000MABJ
+U11 (TQFP64) - at90usb1287-16AU
+U12 (SOT23-5) - FAN2503S30X
+U14 (micro8)- irf7509
+U15 (micro8)- irf7509
+U16 (QFN16) - hmc1052L
+
+CONN12 - UX60-MB5S8

@@ -1,0 +1,26 @@
+The kalman filter with extended stillpoints memory allows auto-calibration for
+magnetic sensors and accelerometers by normalization.
+
+For the kalman filter, the unknowns should each have a different calibration strategy.
+
+Magnetometer
+
+1. bias -- should update more frequently when the noise of the magnitude increases to accomidate for changes in hard-iron distortions.
+2. scale factors -- The the magnetic sensors should have a different pass for scale-factor vs relative scales between the sensors.  The relative scales normally do not change, the overall scale factor should be able to quickly change at startup, then update very slowly.  If calibration immune to fixed magnets is desired, then this value should be allowed to change faster.
+3. cross coupling -- If dynamic soft-iron distortion is enabled, then cross coupling coefficients as well as the alignment quaternion should be calculated under the same conditions as changes in bias.
+4. dip angle -- may change quickly at startup, then update very slowly.
+
+note: changes in magnetic dip and magnitude are correlated
+
+Accelerometer
+
+1. bias -- may have a temperature coefficient
+2. scale factors -- possible temperature coefficient
+3. cross coupling -- constant
+
+Gyroscope
+
+1. bias -- always updating
+2. scale factors -- always updating, (maybe higher order fit)
+3. cross coupling -- constant
+

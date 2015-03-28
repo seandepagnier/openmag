@@ -1,0 +1,144 @@
+To get normalized gravity coords, apply scale-factor and offsets with the least-fit ellipsoid method, then apply user calibration for alignment.  User calibration might include a complete rotation about the laser axis.  The normal of the least-squares fit of the plane the various acceleration vectors lie on is the off axis alignment.  NOTE: there is only a reason to align the laser with the X axis, the other axis might not be aligned and this is OK because it does not affect either elevation or azimuth readings.
+
+Once we have orthogonal and normalized coords for mag and gravity, need to find rotation to convert mag coords to gravity coords.  The angle between the mag and gravity vectors is constant for a given geographic location.
+
+If the rotation from 0, 0, 1 to the gravity vector is applied to the mag vector, (this is done anyway to calculate yaw)  Now save at least 3 or more such points, apply a least-squares best-fit plane.  The normal of the plane is the off-axis alignment with <0, 0, 1>  I think this value should remain relatively constant in all situations.  Apply this rotation to all magnetometer points, finally apply user calibration of a yaw rotation offset.  Really we want to apply a best fit circle in 3-space, the circle lies on the plane, and asin of the radius is the angle between mag and gravity.  This aligns the magnetometer Z axis with the gravity Z axis.
+
+Alternate means to calculate pitch, roll, yaw from normalized mag and gravity vectors. Relying on the magnetometer vector for 2 of the rotations.  One means is to take the known correct angle between these vectors and rotate the gravity vector in the magnetometer-gravity plane until it reaches this angle.  Then apply rotation as normal.
+
+Use the magnitudes of the accel and mag vector to determine accuracy.
+
+x and y are sensors, t is the angle from orthogonal, r and s are their scales trying to get x' and y' which are orthogonal and normalized x' is aligned with the x sensor
+
+
+
+x' = cos(p)
+y' = sin(p)
+
+x/r = cos(p)
+y/s = sin(u)*cos(p) + cos(u)*sin(p)
+also: y = s * sin(u + p)
+
+x = r*x'
+y/s = sin(u)*x' + cos(u)*y'
+y/s - sin(u)*x' = cos(u)*y'
+
+x' = x/r
+y' = [y/s - sin(u)*x'] / cos(u)
+
+For the 2d case, calculating scale factors and mis-alignment:
+
+ax^2+bxy+cy^2 = 1
+x = r*cos(p)
+y = s*sin(u+p)
+
+solve(a*x^2 + b*x*y + c*y^2 = 1, y));
+> y = (sqrt((b^2-4*a*c)*x^2+4*c)-b*x)/(2*c)
+diff((sqrt((b^2-4*a*c)*x^2+4*c)-b*x)/(2*c), x);
+> ((b^2-4*a*c)*x/sqrt((b^2-4*a*c)*x^2+4*c)-b)/(2*c)
+
+solve(((b^2-4*a*c)*x/sqrt((b^2-4*a*c)*x^2+4*c)-b)/(2*c) = 0, x);
+!!> x = -b*sqrt((b^2-4*a*c)*x^2+4*c)/(4*a*c-b^2)
+
+>> x = -b / (sqrt(a)*sqrt(4*a*c-b^2))  -- ti89
+
+--- plug into original equation solve for y
+solve(a*(-b / (sqrt(a)*sqrt(4*a*c-b^2)))^2 + b*(-b / (sqrt(a)*sqrt(4*a*c-b^2)))*y + c*y^2 = 1, y);
+> y = 2*sqrt(a)/sqrt(4*a*c-b^2)   ... so this is s
+
+
+
+--- try this to find u
+r = (2*sqrt(c/(4*a*c - b^2)))
+s = (2*sqrt(a/(4*a*c - b^2)))
+
+x = r
+y = s*sin(u)
+
+x = (2*sqrt(c/(4*a*c - b^2)))
+y = (2*sqrt(a/(4*a*c - b^2))*sin(u))
+
+solve(a*r^2+b*r*y+c*y^2=1, y);
+> y = (sqrt((b^2-4*a*c)*r^2+4*c)-b*r)/(2*c)
+
+grind(solve((sqrt((b^2-4*a*c)*(2*sqrt(c/(4*a*c - b^2)))^2+4*c)-b*(2*sqrt(c/(4*a*c - b^2))))/(2*c) = (2*sqrt(a/(4*a*c - b^2)))*sin(u), u));
+> u = -asin(b*sqrt(c/(4*a*c-b^2))/(2*c*sqrt(a/(4*a*c-b^2))))
+
+b*sqrt(c/(4*a*c-b^2))/(2*c*sqrt(a/(4*a*c-b^2)));
+
+u = -asin(b/(2*sqrt(a*c))
+
+
+-- for the 3d case
+a - f   -- constants in quadric equations, calculated with least squares fit
+r, s, t -- scale factors for x, y, z axis
+u -- angle y sensor is misaligned on x, y plane
+v -- angle z sensor is misaligned on x, y plane
+w -- angle z sensor is misaligned on plane with z vector,
+         and the vector at angle v on x, y plane
+x, y, z -- x, y, z sensor input
+x', y', z' -- normalized magnetic vector output
+p, q -- measurement true angles  (p is like longitude,
+           q like latitude if z is poles)
+
+a*x^2 + b*y^2 + c*z^2 + d*x*y + e*y*z + f*z*x = 1
+
+zx = cos(v)*sin(w)
+zy = sin(v)*sin(w)
+zz = cos(w)
+ 
+x' = cos(p)*cos(q);
+y' = sin(p)*cos(q);
+z' = sin(q);
+
+x = r*cos(p)*cos(q)
+y = s*sin(u+p)*cos(q)
+z = t*(cos(v-p)*sin(w)*cos(q) + cos(w)*sin(q))
+
+x' = x/r
+y/s = sin(u)*x' + cos(u)*y'
+y' = (y/s - sin(u)*x') / cos(u)
+z/t = (cos(v)*x'+sin(v)*y')*sin(w) + cos(w)*sin(q)
+z' = (z/t - (cos(v)*x'+sin(v)*y')*sin(w)) / cos(w)
+
+----- Below is the failed stuff
+
+a*x^2 + b*y^2 + d*x*y = 1
+x = r*cos(p)*cos(q)
+y = s*sin(u + p)*cos(q)
+ 
+Let r' = r*cos(q) and s' = s*cos(q) 
+
+x = r'cos(p)
+y = s'sin(u + p)
+
+'r = 2*sqrt(b/(4*a*b - d^2))
+'s = 2*sqrt(a/(4*a*b - d^2))
+
+
+so from this case:
+r = 2*sqrt(b/(4*a*b - d^2)) / cos(q)
+s = 2*sqrt(b/(4*a*b - d^2)) / cos(q)
+u = -asin(d/(2*sqrt(a*b)))
+
+
+b*y^2 + c*z^2 + e*y*z = 1
+y = s*sin(u + p)*cos(q)
+z = t*sin(v + p)*sin(w + q)
+
+
+
+--- 2D case in conic ---
+
+given a conic of the form:
+z^2 = x^2 + y^2
+
+the plane of form:
+x = t*u
+y = t*v
+z = t*w
+
+the intersection can be projected on the plane as:
+(x'/a)^2 + x'*y'/b + (y'/c)^2 = 1
+
+

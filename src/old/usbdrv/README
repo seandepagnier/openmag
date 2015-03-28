@@ -1,0 +1,48 @@
+USB support for Atmels AT90USB (1287) microcontroller
+Firmware is compatible with avr-gcc version 3.4.6 and 4.1.2 
+Enumeration (with Linux host) and basic data transfer (LibUSB 0.1.12) works fine now!
+A simple example program for Linux console is included.
+Basic documentation is available on my homepage, see http://www.ssalewski.de/Misc.html
+License: GPL-2
+S. Salewski 2006/2007
+
+USB Documentation:
+H.J. Kelm, USB 2.0, FRANZIS 
+J. Axelson, USB Complete, Lakeview Research
+www.beyondlogic.org/usbnutshell/usb-in-a-nutshell.pdf
+Atmel: Datasheet for AT90USB
+Atmel: AVR329, USB Firmware Architecture
+
+Files:
+AT90USB-Errata.txt	Some remarks about errors or unclear statements in AT90USB1287 datasheet
+com_def.h		Constants which are used by firmware and host application program		
+daq_dev.c		Function for data acquisition using the intern ADC (port ADC0)
+daq_dev.h		
+defines.h		Project specific constants
+macros.h		Some general macros
+Makefile		Makefile: type "make" to generate all binary files and "make dfu" to upload firmware
+README			This file
+ringbuffer.c		Simple ring buffer (FIFO) for buffering ADC data 
+ringbuffer.h		
+SUDAP.c			Example firmware application: Data acquisition (port ADC0) and control of digital port B
+SUDD.c			Example host application: Console based data acquisition and control of digital port B
+usart_debug.c		Functions for debugging over serial port	
+usart_debug.h		 	
+usart_drv.c		Access to serial port
+usart_drv.h		
+usb_api.c		This file contains constants and functions which need modifications
+usb_api.h		  to customize the software for a specific device
+usb_drv.c		Basic USB functions for AT90USB controller
+usb_drv.h		USB macros, basic low level register stuff
+usb_isr.c		Interrupt service routines
+usb_requests.c		USB (standard) requests, enumeration
+usb_requests.h		
+usb_spec.c		USB datastructures and constants
+usb_spec.h		
+
+gen_postscript.txt	Script for generating postscript from sources for printout using enscript
+gen_pdf.tex             Small LaTeX file using listings package for pretty-printing sources
+AT90USB-20070910.tar.gz All source files in compressed form
+AT90USB-20070910.zip    All source files in zip compressed form
+sources.ps.gz		All source files preformated for printout (enscript)
+sources.pdf		All source files preformated for printout (pdflatex)

@@ -1,0 +1,82 @@
+v 20080706 1
+C 1900 2500 1 0 0 output-2.sym
+{
+T 2800 2700 5 10 0 0 0 0 1
+net=KEYPAD0:1
+T 2100 3200 5 10 0 0 0 0 1
+device=none
+T 2800 2600 5 10 1 1 0 1 1
+value=KEYPAD0
+}
+C 1900 2200 1 0 0 output-2.sym
+{
+T 2800 2400 5 10 0 0 0 0 1
+net=KEYPAD1:1
+T 2100 2900 5 10 0 0 0 0 1
+device=none
+T 2800 2300 5 10 1 1 0 1 1
+value=KEYPAD1
+}
+C 1900 1900 1 0 0 output-2.sym
+{
+T 2800 2100 5 10 0 0 0 0 1
+net=KEYPAD2:1
+T 2100 2600 5 10 0 0 0 0 1
+device=none
+T 2800 2000 5 10 1 1 0 1 1
+value=KEYPAD2
+}
+C 200 300 1 0 0 connector8-1.sym
+{
+T 300 3500 5 10 0 0 0 0 1
+device=CONNECTOR_8
+T 300 2900 5 10 1 1 0 0 1
+refdes=CONN7
+T 200 300 5 10 0 0 0 0 1
+footprint=CONNECTOR 8 1
+}
+C 1900 1600 1 0 0 output-2.sym
+{
+T 2800 1800 5 10 0 0 0 0 1
+net=KEYPAD3:1
+T 2100 2300 5 10 0 0 0 0 1
+device=none
+T 2800 1700 5 10 1 1 0 1 1
+value=KEYPAD3
+}
+C 1900 1300 1 0 0 output-2.sym
+{
+T 2800 1500 5 10 0 0 0 0 1
+net=KEYPAD4:1
+T 2100 2000 5 10 0 0 0 0 1
+device=none
+T 2800 1400 5 10 1 1 0 1 1
+value=KEYPAD4
+}
+C 1900 1000 1 0 0 output-2.sym
+{
+T 2800 1200 5 10 0 0 0 0 1
+net=KEYPAD5:1
+T 2100 1700 5 10 0 0 0 0 1
+device=none
+T 2800 1100 5 10 1 1 0 1 1
+value=KEYPAD5
+}
+C 1900 700 1 0 0 output-2.sym
+{
+T 2800 900 5 10 0 0 0 0 1
+net=KEYPAD6:1
+T 2100 1400 5 10 0 0 0 0 1
+device=none
+T 2800 800 5 10 1 1 0 1 1
+value=KEYPAD6
+}
+C 1900 400 1 0 0 output-2.sym
+{
+T 2800 600 5 10 0 0 0 0 1
+net=KEYPAD7:1
+T 2100 1100 5 10 0 0 0 0 1
+device=none
+T 2800 500 5 10 1 1 0 1 1
+value=KEYPAD7
+}

@@ -1,0 +1,2 @@
+To use a magnetometer to calibrate a gyro it is possible to use the derivative vectors since the magnetomer has much more bandwidth than can be calibrated at lower speeds of motion.  To take advantage of this a high bandwidth magnetometer is essential.
+

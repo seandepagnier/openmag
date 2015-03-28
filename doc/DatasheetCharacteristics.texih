@@ -1,0 +1,29 @@
+@node Characteristics
+@chapter Characteristics
+
+@multitable @columnfractions .6 .2 .2
+@headitem  Parameter @tab Value @tab Unit
+@item Vcc @tab @code{3}-@code{6v} @tab V@math{^1}
+@item Current with USB @tab @code{25} @tab mA
+@item Current without USB@tab @code{17} @tab mA
+@item Current in powerdown mode @tab @code{80} @tab uA
+@item Startup time @tab @code{300} @tab mS
+@item Pitch/Roll Accuracy @tab @code{0.2} @tab deg@math{^2}
+@item Pitch/Roll Precision @tab @code{0.04} @tab deg
+@item Yaw Accuracy @tab @code{1.5} @tab deg@math{^2}
+@item Yaw Precision @tab @code{0.01} @tab deg
+@item Accelerometer range @tab @code{+- 2} @tab G
+@item Magnetometer range @tab @code{+- 6} @tab Gauss
+@item Accelerometer output rate @tab up to 500 @tab hz
+@item Magnetometer output rate @tab up to 64 @tab hz
+@item Accelerometer bandwidth @tab 10 bits @@10 hz @tab per G
+@item Magnetometer bandwidth @tab 13 bits @@10 hz @tab per gauss
+@item Temperature Accuracy @tab @code{+- 5} @tab deg F
+@item Temperature Precision @tab @code{+- .3} @tab deg F
+
+@end multitable
+
+1 Can be powered via USB
+
+2 with good calibration
+

@@ -1,0 +1,76 @@
+I will treat calibration as an event which may be initiated.  This should
+reset all of the error covariances.  The user should know that this should
+only be done when the final magnetic environment is in place with no
+external distortions present.
+
+
+The level of calibration may be queried.
+
+
+There may be a secondary filter which tracks temporary distortions.  These
+distortions are typically limited to inclination, declination and magnitude, but may include bias in the case of iron added or removed to the mag (USB cable plug for example)  If there is soft-iron distortion, the cross-coupling coefficients may need to change, and if there are magnets added or removed, the relative scale-factors will change.
+
+
+I may add support for laser/backlight biases.  Essentially there are
+new values and error covariances for magnetic bias for any known external
+factors.
+
+
+
+
+At startup, the magnitude of the magnetic field can be measured directly,
+the deviation from the value when shut off determines the uncertainty of
+the magnitude.
+
+If a magnetic vector sudently jumps in magnetude and/or dip angle,
+then investigation must be given.
+
+This is especially true if the magnitude of data as it is calibrated
+and/or the dip-angle of the vector has changed since the last calibration.
+
+It is also possible to also have a temporary magnetic distortion.  It may be
+considered to perform calibration over the frequency domain of the magnetic
+distortions.  This would account for electric motors, and even compensate for
+the magnetic distortions caused by the sun, however would not compensate for
+random movement in magnetically unstable environments.
+
+
+
+Gyro auto scale-factor calibration using stillpoints
+
+Accels provides 2 angles of rotation when still.  Mag provides 2 angles of
+rotation at all times.  When still, the actual orientation is well understood,
+so by tracking rotations between still points, it should be possible to
+integrate the gyros, and extract a datapoint for a stillpoints model.  The
+coefficients for the gyro can be computed exactly the same as the accels
+and magnetometer.
+
+Magnetic sensor's bias varies depending on the magnitude! A hybrid scheme should be initially applied to attempt to calibration slew coefficients.  (Is this only significant without good set/reset straps on the sensors?)
+
+Unknowns
+frequency domain data for raw sensor data
+non-linearity of sensor data (eg: scale-factor calibration)
+
+Can stillpoints be generalized to allow calibration of sensors even in
+environments which are never still?
+
+In the lair of Sensor Hell:
+1. scale-factor cal (non-linearity)
+2. bias-factor cal (magnetic saturation)
+3. temperature coefficient
+4. sensor-failure
+
+Accelerometer pertubations:
+1. acceleration in addition to gravity (short-term, could be calibrated over
+   the frequency domain to remove distortions from the moon, as well as wave,
+   action, or otherwise repetative motion (human walking etc...)
+2. acceleration magnitude varies slightly depending on geographic location
+   and altitude.
+
+Magnetic pertubations:
+1. magnitude and dip are based on geographic location (and altitude).  When
+   calibrated, a rough estimate of latitude and longitude is possible by
+   looking at the absolute magnitude and dip angle.  The location is more
+   accurate for latitude.
+2. short-term bias changes (realignment in iron mounted near the sensors as
+   they are rotated though the magnetic field)

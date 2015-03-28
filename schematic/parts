@@ -1,0 +1,58 @@
+This file lists all the parts used.  Not all parts are needed for all of the boards.  Almost everything can be ordered from digikey.com, some parts are only on mouser or are much cheaper there.
+
+the format used is: name (cost@1 cost@100)
+
+ad7799 (8.53 6.8) (or ad7798 (8.94 6.03))
+hmc1052 (17 5.5)
+hmc1051z (17 5)
+sca3000-D01 (27 20.25)
+irf7509 x2 (1.45 .6716)
+voltage regulator FAN2503S30X (.95 .68)  [use mouser for this part]
+crystal CS20 8.000MABJ-UT (1.10 .70)
+
+resistors:  0603 thick film (0.07600 0.04080)
+MCR03EZPFX22R0 22   x2
+MCR03EZPFX2000 200  x1
+MCR03EZPFX1002 10k  x1
+MCR03EZPFX1003 100k x1
+MCR03EZPFX1004 1M   x0 (+2 battery powered only)
+
+capacitors:
+C0603C220J5GACTU 22pF x2 (.036 .021)
+C0603C104K4RACTU .1uF x1 (.020 .012)
+C0603C105K4PACTU  1uF x3 (+8 for lcd only) (.075 .0255)
+
+capacitors: 0805
+ECJ-2FB0J106K (.324 .21) ceramic 10uF x3  (+1 for battery powered)
+
+survey device only:
+atmega2561V (15.91 9.87)
+usb connector 690-004-221-023 x2 (.93  .66)
+battery charger part max1811
+switch 1101M2S3ABE2 (2.66 2.2) [use mouser for this part]
+lcd connector  XF2L-3035-1A (1.21 .87)
+lcd backlight connector PPTC05LFBN-RC (.46 .244)
+box  boxenclosures.com 70 series
+ft232rl usb->uart (don't use digikey)
+25LC512-I/SN 64kb eeprom (1.93 1.64)
+
+for hot wire:
+TPS73730DRBR high current regulator (1.5 .90)
+CT6EP102 1k pot (.68 .57)
+CT6EP104 100k pot (.68 .57)
+STN790A BJT transistor (.62 .34)
+
+pointer device only:
+at90usb1287 (16.7 11)
+buttons TL1105AF250Q (.33 .23)
+box serpac.com CA-8 (8.03 4.84) (mouser is cheaper 4.10)
+usb connectors: UX60-MB-5S8 (1.18 .697)
+
+bluetooth modules:
+wt21
+
+Laser Range Finder:
+74VHC4040MTC  12 bit 210mhz counter (.57 .32)
+SY10EL33LZG x2 2 bit 4.2ghz counter (3.29 2.04)
+BCS2015G1 - photodiode
+LMH6702 - fast opamp

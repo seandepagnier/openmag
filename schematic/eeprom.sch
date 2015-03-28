@@ -1,0 +1,50 @@
+v 20080706 1
+C 1600 300 1 0 0 gnd-1.sym
+C 4900 700 1 180 0 input-2.sym
+{
+T 4900 500 5 10 0 0 180 0 1
+net=MOSI:1
+T 4300 0 5 10 0 0 180 0 1
+device=none
+T 4400 600 5 10 1 1 180 7 1
+value=MOSI
+}
+C 1700 1500 1 180 0 output-2.sym
+{
+T 800 1300 5 10 0 0 180 0 1
+net=MISO:1
+T 1500 800 5 10 0 0 180 0 1
+device=none
+T 800 1400 5 10 1 1 180 1 1
+value=MISO
+}
+C 1700 400 1 0 0 eeprom.sym
+{
+T 2895 2100 5 10 1 1 0 0 1
+refdes=U18
+T 1795 2100 5 10 1 1 0 0 1
+device=EEPROM
+T 2100 13050 5 10 0 0 0 0 1
+footprint=SO8
+}
+C 4900 1100 1 180 0 input-2.sym
+{
+T 4900 900 5 10 0 0 180 0 1
+net=SCK:1
+T 4300 400 5 10 0 0 180 0 1
+device=none
+T 4400 1000 5 10 1 1 180 7 1
+value=SCK
+}
+C 300 1700 1 0 0 input-2.sym
+{
+T 300 1900 5 10 0 0 0 0 1
+net=EEPROMSS:1
+T 900 2400 5 10 0 0 0 0 1
+device=none
+T 1400 2100 5 10 1 1 0 7 1
+value=EEPROMSS
+}
+C 3300 1800 1 0 0 vcc-1.sym
+N 3500 1800 3500 1400 4
+C 1500 1000 1 0 0 vcc-1.sym

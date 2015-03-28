@@ -1,0 +1,19 @@
+The openmag project's goal is to make an auto-calibrating tilt-compensated
+magnetometer open and free to modify.
+
+The directories
+
+doc:
+contains texinfo documentation for the project (which can be converted to any format with make)
+
+math:
+math algorithms, notes
+
+pdf:
+mainly datasheets for relevant parts used in this project
+
+schematic:
+contains gschem and pcb files for the board.  Also has copies of all revs of the board.
+
+src:
+contains all source code, both for host and target

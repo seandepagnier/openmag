@@ -1,0 +1,297 @@
+@name about
+@center @size4 About @size5 Open Mag!
+
+@justify @size4 This project was originally started to aid in cave surveys. It quickly devolved into an auto-calibrating magnetometer.
+
+Much more information can be found online at:
+
+@size0 www.digitalsurveyinstruments.com
+
+@size4 @justify openmag @size3 is an open source magnetometer project written by Sean D'Epagnier with contributions from other open projects.
+
+
+@name warning_accelerometer_failure
+@center @size4 Accelerometer Failure
+
+@justify @size3 The accelerometer has failed.
+
+
+@name warning_magnetometer_failure
+@center @size4 Magnetometer Failure
+
+@justify @size3 The magnetometer has failed.
+
+
+@name warning_magnetometer_setreset_failure
+@center @size4 Magnetometer Set/Reset Failure
+
+@justify @size3 The magnetometer failed to reverse bias with set and reset straps on one or more axes. The magnetometer will continue to operate but the accuracy is not guarenteed.
+
+
+@name warning_power_failure
+@center @size5 Power Failure
+
+@justify @size3 The power has dropped below the minimum voltage. It is possible to continue using the device, however it may be inaccurate and otherwise function incorrectly.
+
+
+@name about_survey
+@center @size4 Survey
+@justify @size3 Survey mode makes it possible to use the laser pointer to measure and record incline, azimuth, and optionally additional data the user may wish to enter that is supported.
+
+@justify @size4 The first page shows incline and azimuth on the right. Press '1' to turn the laser on, when you release it, the laser will go off a second later. The measurement is taken right when the laser goes off.
+
+The device can typically store at 700 measurements. Additional attributes (such as distance) added to the measurement are optional and require additional storage space.
+
+
+@name about_survey_attributes
+@center @size4 Survey Attributes
+@left @size3
+survey name - The survey name is a 3 letter alpha-numeric code followed by a survey number. The number automatically increments after a measurement is stored. If you save a measurement which already has the same from and to, it will overwrite that measurement.
+
+Other attributes may be entered or modified for the survey point, entering backsight, distance or lrud requires additional storage.
+
+
+@name warning_survey_outofmemory
+@center @size4 Out of Memory!
+
+@justify @size3 Not enough space to store this measurement, try deleting some measurements to free up space.
+
+
+@name survey 
+
+backsight - A backsight may be used to double check against human and measurement errors.
+
+distance - Entering a distance is optional and if ommited will save memory for more shots. It is simply for convience to enter it.
+
+lrud - Left Right Up Down distances are also optional and are convenience to enter left right up and down distances to the nearest walls in a cave.
+
+
+@name about_gaussmeter
+@center @size5 Gaussmeter
+@justify @size4 The gaussmeter allows you to measure just the magnetic field. If accurate measurements are desired, and the field strength is known, it should be entered in the calibration menu, this allows the gaussmeter to display in units of gauss.
+
+The magnetic sensors are located in the lower left directly underneath the * key.
+
+@center @size4 Page 1
+@justify The first number is the absolute field strength, the second number is the relative field. 
+
+@center @size4 Page 2
+@justify The x, y, and z components of magnetic field are given.
+
+
+@name about_plots
+@center @size4 Plots Mode
+@justify @size3 Plot mode allows for plotting of sensor data directly onto the screen for easy visualization of the data. The plot can be configured to graph any function of the sensor data.
+
+
+@name about_plots_graph_entry
+@center @size4 Plots Graph Entry
+@justify @size3 An expression is used to specify how the data is displayed on the plot. There are various pre-defined expressions to make things easier, or you may select custom and enter your own expresion.
+
+
+@name about_calibration
+@center @size5 Calibration
+
+@justify @size3 The device starts uncalibrated but can auto-calibrate the accelerometers and magnetometers. For more accurate results the user should manually ensure that the still point calibration is used.
+
+@center @size4 Temperature
+@justify @size3 The accelerometers contain a bonus temperature sensor. You can calibrate it by entering the actual temperature.
+
+
+@name about_calibration_config
+@center @size4 Calibration Config
+
+@justify @size3 Joint stillpoints -- This option allows you to force all stillpoints to have data for both accel and mag sensors. If disabled, there may be different numbers of stillpoints for each sensor, and some stillpoints may only give data for one sensor. Without further testing, it is unclear which option is preferable.
+
+Still Tolerance -- The still tolerance is a value used to determine when the sensor is still. If a sensor is determined to be still, the raw values are stored as a stillpoint for calibration. Lower values make it more difficult to achieve stillness and result in better calibration points. Higher numbers make it easier to get still points, but the resulting calibration will be worse. Recommended values are from 40-100.
+
+Use Mag Dip -- There are two similar ways to calibrate the magnetometer. The first (default) way is to calibrate the magnetometer, then calculate the rotation needed to align it to the accelerometers. When "Use Mag Dip" is enabled, instead the alternate 3x3 matrix multiplication is applied instead which performs the magnetic calibration and rotation in one step. Without further testing, it is unclear which method is superior but the azimuth results are slightly different. This option is only available on hardware version 2.
+
+
+@name about_calibration_accelerometer
+@center @size4 Accelerometers
+@justify @size3 To calibrate, place the unit in many orientations, distributed as evenly as possible. Wait a few seconds in each one to record a still point. Then press '1' to apply the calibration.  A minimum of 16 stillpoints is required.
+
+When the device is still accelerometers measure only gravity which is used to determine attitude (pitch and roll). The accelerometers can only auto-calibrate when the device is not moving. When calibrated, the device should read 1.00g +- .01g force when not moving. If the force consistantly reports forces away from 1g when not moving, the calibration should be reset and started over.
+
+The percentage displayed is the deviation for the accelerometer calibration. A good calibration should result in .1% or smaller. It is recommended to use 25 or more points. More positions give better calibration.
+
+
+@name about_calibration_magnetometer
+@center @size4 Magnetometer
+@justify @size3 To calibrate the magnetometer hold the device still in many orientations. The device will flash (and beep on HW2) when it gets an update. 15 orientations or more is recommended. The Mag value should be 0.99 to 1.01 in all orientations once calibrated and the Dip Error should be < 1 degree. It is difficult if not impossible to calibrate correctly near magnetic distortions. Magnetic distortions are common indoors, perform calibration outdoors away from metal. Watch out for buried iron. When enough points are stored, press '1' to update the calibration.
+ 
+The percentages displayed are the deviation for the magnetic fit, and the alignment fit, and on hardware version 2, the deviation for the alternate transformation calibration. These numbers should be < 1%.  The calibration can be cleared if there are issues or the calibration is corrupted, and it will revert to basic calibration.  Basic calibration should not be used for accurate survey measurements.
+
+
+@name about_calibration_laseralignment
+@center @size4 Laser Alignment
+
+@justify @size3 The laser is used in survey mode and must be aligned to the sensors. This calibration needs to only be performed once.
+
+Survey mode gives readings for incline and azimuth (pitch and yaw) but the rotation around the laser itself (roll) is never aligned and not used. Before aligning the laser, the accel and mag should be well calibrated. To align the laser, you must take identical shots rotated around the laser axis. The minimum number of shots is 3, but more is better and allows you to verify the calibration. Make sure you evenly distribute them around the laser axis. The rotation angle of the alignment is displayed. The error displayed is the error of the alignment, if this error is high, then measurements will be inaccurate.
+
+@size2 If you make a bad shot, it is best to reset and start over.
+
+
+@name about_calibration_boxalignment
+@center @size4 Box Alignment
+
+@justify @size3 Alignment of the box is used for the compass. This allows arbitrary re-alignment of the sensors.
+
+There are two options for alignment. If you know which way magnetic north is, then face north and level and align. If you do know magnetic north, then select alternative alignment, first level, then you will need to align with the device pointed straight up (against a wall or other vertical face)
+
+
+@name warning_calibration_inconsistant_inclination
+@center @size4 Warning!
+
+@justify @size3 The calculated inclination does not match the measured inclination!
+
+This may be caused by:
+1) Incorrect data entered by the user.
+2) Sensors not fully calibrated, or sensor mal-function.
+3) The device was moving while entering data.
+4) Magnetic distortions (entering location step should be done when distortion-free.)
+5) The magnetic model is not accurate after year 2010.
+
+
+@name about_settings
+@center @size4 Settings
+
+@justify @size3 There are a few basic settings you can configure here, the device is fully configureable when attached to a computer.
+
+
+@name about_magnetic_range
+@center @size4 Magnetic Range Setup
+
+@size3 @justify There are 4 different settings for the magnetic range. The total range is shown in gauss, the smaller the total range, the higher the resolution. The reason to use a higher range is if the sensors saturate.
+
+@size2 @left Note: Switching ranges can invalidate calibration
+
+
+@name about_calibration_magneticlocation
+@center @size4 Magnetic Location
+@justify @size3 These are the parameters of the magnetic field you are in. Specifying declination is needed for true-north mode. Field strength is used by the gaussmeter.
+
+@center @size4 Inclination
+@justify @size3 This is the angle into the earth of the magnetic field vector. This value mainly varies with latitude, and is negative in the southern hemisphere. This angle is computed automatically, however, entering the correct angle will allow for quicker auto-calibration.
+
+@center @size4 Declination
+@justify @size3 This is the angle between magnetic and true north. If the unit is set in true north mode (under settings), then this offset is automatically applied to heading in all modes.
+
+@center @size4 Field Strength
+@justify @size3 The absolute field strength is used to determine absolute measurements with the gaussmeter.
+
+
+@name about_calibration_sphereplot
+@center @size4 Calibration Sphere Plot
+@justify @size3 The calibration sphere plots all of the still points used for calibration on a sphere as well as the line connecting the center of the sphere to the current sensor position.
+
+For good calibration results, the points should be well spread on the sphere and evenly distributed.
+
+
+@name about_anemometer
+@center @size4 Hot Wire Anenometer
+
+@size3 @justify The hot wire anemometer is a low-cost solution for measuring airflow. This is done by powering a wire with a high temperature coefficient of resistance. This way when the air cools the wire, the resistance will decrease. Since the wire is driven at a constant current, the voltage across the wire is proportional to resistance, and can be measured by the microprocessor with an analog to digital converter.
+
+There are various settings for range (in volts)  The smaller range gives much better resolution, but can saturate much more easily. Calibration must be performed after a range change.
+
+@size3 The offset and scale can be manually entered, or can be determined by zeroing the anenometer with no airflow, then oneing with 1 unit/s of air flow.
+
+
+@name info_anemometer
+@center @size4 Anenometer Info
+
+@left The calibration equation used:
+@size2 V^2 = A + B*U^C
+A - offset
+B - scale factor
+C - exponent (depends on the probe)
+U - air flow
+V - voltage across wire
+
+@center @size4 Information about making probes
+@justify @size3 A probe can be made by breaking a 5W 12v halogen bulb in a vice so the filiment remains intact, then connecting the two leads of the bulb to the black and white wires in a usb cable which is plugged into the DUSI. An adaptor is provided. Depending on the bulb, the DUSI may need to be opened to fine-tune things. There are two potentiometers which can be turned with a screwdriver. The one on the left (closest to the edge of the board labeled 103) adjusts the drive current. Clockwise rotation increases current. Care should be taken to not set this value too high or a lot of current can be consumed and heat generated, and the probe may overheat and break. The current through the probe can be measured, <500mA is acceptable. Otherwise the voltage across the probe can be measured, for a 5W lightbulb, the voltage should not exceed 1.2 (the probe will turn red). The inner potentiometer (104) adjusts the offset. It should be adjusted to avoid sensor saturation at a small range (to give good gain ability)
+
+
+@name about_calculator
+@center @size4 Calculator
+
+@size3 @justify Use the calculator to perform basic math operations.
+
+
+@name warning_calculator_stack_full
+@center @size4 Calculator
+@size3 @left stack full
+
+
+@name warning_calculator_stack_empty
+@center @size4 Calculator
+@size3 @left stack empty
+
+
+@name warning_calculator_buffer_full
+@center @size4 Calculator
+@size3 @left buffer full
+
+
+@name warning_calculator_bad_exp
+@center @size4 Calculator
+@size3 @left Parsing failed from bad expression
+
+
+@name about_spherepainter
+@center @size4 Sphere Painter
+@size3 @left The sphere painter allows you to paint in the unit sphere. For example, you can use the laser pointer to aim at objects, and draw lines along edges. Then you can view the data rotated in 3 dimensions.
+
+The orientation of the device determines where you are drawing. Pressing 'C' begins drawing an arc, pressing 'C' again finishes it.
+
+@size3 @center keys when viewing
+@size2 @left 1 up left
+2 up
+3 up right
+4 left
+5 zoom in
+6 right
+7 down left
+8 down
+9 down right
+0 zoom out
+# rotate counter clockwise
+* rotate clockwise
+
+@name about_vector_view
+@center @size4 Vector View
+@size3 @left The vector view makes it possible to visualize the accelerometer and magnetometer vectors. The vector with the single arrow points toward acceleration, the double arrow points in the direction of the magnetic field.
+
+
+@name about_power_settings
+@center @size4 Power Settings
+
+@size3 @left still sleep -- The DUSI enters this mode when it fails to detect movement for a specified number of seconds.
+button idle sleep -- The DUSI enters this mode when no buttons have been pressed for a specified number of seconds.
+
+
+@center Sleep types
+@left none  -- no sleep occurs
+idle -- The screen and backlight remain on and the cpu enters idle mode.
+powersave -- similar to idle except the cpu enters a lower sleep mode, and the device will no longer wake from communication (usb or serial)
+powerdown -- screen turns off, and cpu enters lowest power state.
+
+
+@size3 @center Power wake on motion
+@justify This option allows the device to wake when moved if it went to sleep from being still. Enabling this consumes slightly more power and also can cause undesireable wakeups. If the unit sleeps from buttons being idle, it will not wake from motion.
+
+
+@name about_surveyplot
+@center @size4 Survey Line Plot
+
+@size3 @left The survey line plot allows viewing of survey data in a 3D line plot. Distances must be entered for each measurement if it is to be plotted. The following keys are used for navigation:
+
+5 zoom in
+0 zoom out
+# rotate counter clockwise
+* rotate clockwise
+
+1-9 (except 5) are used for translation or rotation depending on the mode.

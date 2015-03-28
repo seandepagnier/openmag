@@ -1,0 +1,12 @@
+@node calc
+@section calc
+@itemize
+@item pitch - the angle the box x-axis is pointed up or down, from -90 to 90.
+@item roll - the rotation around the box x-axis, from -180 to 180.
+@item yaw - the heading of the box x-axis, from 0-360.  0 is north, 180 is south.
+@item dip - the measured inclination angle between the magnetic vector and acceleration vector.  This is related to your geographic magnitic latitude and should be relatively constant when well calibrated and the device is not moving.
+@item incline - the angle between the laser axis and horizontal.
+@item azimuth - the direction the laser axis is pointed, like yaw.
+@item boxalignedaccel - the calibrated accelerometer with the boxalignment applied, this is used to calculate pitch and roll
+@item boxalignedmag - the calibrated magnetomtermeter with the boxalignment applied, this along with boxaligned accel is used to calculate yaw and dip
+@end itemize

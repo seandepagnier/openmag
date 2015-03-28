@@ -1,0 +1,114 @@
+v 20080706 1
+C 3400 1300 1 90 1 io-1.sym
+{
+T 3200 400 5 10 0 0 90 6 1
+net=D-:1
+T 3000 900 5 10 1 1 90 7 1
+value=D-
+}
+C 2700 2300 1 180 1 pnp-3.sym
+{
+T 3600 1800 5 10 0 0 180 6 1
+device=PNP_TRANSISTOR
+T 3600 1900 5 10 1 1 180 6 1
+refdes=Q1
+T 2700 2300 5 10 0 0 0 0 1
+footprint=sot223transistor
+}
+C 700 1400 1 270 1 resistor-variable-1.sym
+{
+T 1600 2200 5 10 0 0 90 2 1
+device=VARIABLE_RESISTOR
+T 700 1500 5 10 1 1 180 2 1
+refdes=R14
+T 400 1300 5 10 1 1 0 0 1
+value=100k
+T 700 1400 5 10 0 0 0 0 1
+footprint=throughholepot
+}
+C 900 1100 1 0 1 gnd-1.sym
+C 1200 1900 1 270 0 output-2.sym
+{
+T 1400 1000 5 10 0 0 270 0 1
+net=HOTWIREA:1
+T 1600 1000 5 10 1 1 90 1 1
+value=HOTWIREA
+}
+C 3300 1200 1 0 0 output-2.sym
+{
+T 4200 1400 5 10 0 0 0 0 1
+net=HOTWIREB:1
+T 4600 1000 5 10 1 1 180 1 1
+value=HOTWIREB
+}
+C 2100 1300 1 270 1 resistor-variable-1.sym
+{
+T 3000 2100 5 10 0 0 90 2 1
+device=VARIABLE_RESISTOR
+T 2100 1700 5 10 1 1 180 2 1
+refdes=R15
+T 1900 1500 5 10 1 1 0 0 1
+value=1k
+T 2100 1300 5 10 0 0 0 0 1
+footprint=throughholepot
+}
+C 2100 -100 1 270 1 input-2.sym
+{
+T 2300 -100 5 10 0 0 270 6 1
+net=HOTWIREEN:1
+T 2500 200 5 10 1 1 90 1 1
+value=HOTWIREEN
+}
+C 3100 2300 1 0 0 vdd-1.sym
+C 600 2300 1 0 0 vdd-1.sym
+C 7500 1000 1 0 1 gnd-1.sym
+C 6100 900 1 0 1 gnd-1.sym
+N 5800 1200 6200 1200 4
+C 3700 2300 1 180 1 input-2.sym
+{
+T 3700 2100 5 10 0 0 180 6 1
+net=BATTVCC:1
+T 4800 2400 5 10 1 1 180 1 1
+value=BATTVCC
+}
+C 3700 1900 1 180 1 input-2.sym
+{
+T 3700 1700 5 10 0 0 180 6 1
+net=VDDEN:1
+T 5100 1600 5 10 1 1 180 1 1
+value=VDDEN
+}
+C 5100 1200 1 0 0 tps737xx.sym
+{
+T 6295 2500 5 10 1 1 0 0 1
+refdes=U23
+T 5295 2500 5 10 1 1 0 0 1
+device=TPS737xx
+T 5500 13850 5 10 0 0 0 0 1
+footprint=SOT223dcq
+}
+C 7600 1300 1 90 0 capacitor-1.sym
+{
+T 7400 2000 5 10 1 1 180 0 1
+refdes=C25
+T 6700 1500 5 10 0 0 90 0 1
+symversion=0.1
+T 7400 1600 5 10 1 1 180 0 1
+value=1uF
+T 7600 1300 5 10 0 0 0 0 1
+footprint=603
+}
+C 7000 600 1 0 1 gnd-1.sym
+C 7100 900 1 90 0 capacitor-1.sym
+{
+T 6800 1200 5 10 1 1 180 0 1
+refdes=C26
+T 6200 1100 5 10 0 0 90 0 1
+symversion=0.1
+T 6900 1000 5 10 1 1 180 0 1
+value=.1uF
+T 7100 900 5 10 0 0 0 0 1
+footprint=603
+}
+C 7200 2200 1 0 0 vdd-1.sym
+N 6900 2200 7400 2200 4

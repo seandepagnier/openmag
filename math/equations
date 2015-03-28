@@ -1,0 +1,19 @@
+sphere
+   (x-a)^2 + (y-b)^2 + (z-c)^2 = r^2
+3d ellipse
+   a*((x-d))^2 + b*((y-e))^2 + c*((z-f))^2 = 1
+   or with overall scale independant (a = 
+   (x-d)^2 + (a*(y-e))^2 + (b*(z-f))^2 = r^2
+3d cross-coupled ellipse
+   (a*(x-g))^2 + (b*(y-h) + d*(x-g))^2 + (c*(z-i) + e*(x-g) + f*(y-h))^2 = 1
+   (x-g))^2 + (b*(y-h) + d*(x-g))^2 + (c*(z-i) + e*(x-g) + f*(y-h))^2 = r^2
+
+3d cross-coupled misaligned ellipse
+   dx = x-g, dy = y-h, dz = z-i
+   (a*dx + b*dy + c*dz)^2 + (d*dx + e*dy + f*dz)^2 + (g*dx + h*dy + i*dz)^2 = 1
+   (dx + b*dy + c*dz)^2 + (d*dx + e*dy + f*dz)^2 + (g*dx + h*dy + i*dz)^2 = r^2
+   r . q = dip
+
+
+temperature bias drift compensated ellipse
+   a*(x-d-t*dtx)^2 + b*(y-e-t*dty)^2 + c*(z-f-t*dtz)^2 = 1   

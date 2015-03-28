@@ -1,0 +1,8 @@
+*.dvi
+*.html
+*.info
+*.log
+*.pdf
+*.txt
+*.aux
+index.html

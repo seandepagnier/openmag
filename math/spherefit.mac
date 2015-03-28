@@ -1,0 +1,212 @@
+/* Copyright (C) 2009 Sean D'Epagnier <sean@depagnier.com>
+ *
+ * This Program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ */
+
+/* This file contains maxima routines for testing various equations for
+   to find optimal least squares fits. */
+
+/* turn off rat printing */
+ratprint: false$
+
+/* returns the deviation of vals */
+deviation(vals) := sqrt(apply("+", map (lambda ([x], x^2), vals)) / length(vals))$
+
+/* build a jacobian matrix */
+build_jacobian_residule(data, vars, exp, params, vals) := block
+(diffs:map (lambda ([param], diff(exp, param)), params),
+ sub1:map ("=", params, vals),
+ [apply(matrix,
+       maplist (lambda ([row],
+                        block (sub2:append(sub1, map ("=", vars, row)),
+                               map (lambda ([d], sublis (sub2, d)), diffs))),
+             data)),
+ maplist (lambda ([row],
+                    block (sub2:append(sub1, map ("=", vars, row)),
+                           -sublis (sub2, exp))),
+             data)])$
+
+/* run through least squares 1 iteration of one function
+   m: the data
+   vars: the variable names for the data used in exp
+   params: the parameters to estimate
+   vals: the initial values for the variables
+   returns [residule, vals]  residule is the deviation of the residules, vals is the list of
+                     updated values for the parameters.
+
+   example of spherical fit:
+       least_squares(m, [x,y,z], [(x-a)^2+(y-b)^2+(z-c)^2-d], [a,b,c,d], [0,0,0,1]);
+*/
+least_squares(data, vars, exps, params, vals) := block
+(jacobian_and_residules:map(lambda([exp],
+        build_jacobian_residule(data, vars, exp, params, vals)), exps),
+ jacobian:apply(append, map(first, jacobian_and_residules)),
+ residule:apply(append, map(second, jacobian_and_residules)),
+ update:((transpose(jacobian).jacobian)^^-1).(transpose(jacobian).transpose(residule)),
+ [deviation(residule), map ("+", vals, first(transpose(update)))])$
+
+[jacobian, residule]:apply(lambda([each]
+            map(lambda([exp], build_jacobian_residule(data, vars, exp, params, vals)), exps)),
+
+/* Iterate least squares until the deviation deviation of the residules does not get
+   much better.
+
+   returns [iterations, residule, vals]
+*/
+ 
+least_squares_iterate(data, vars, exps, params, vals) := block
+(least_squares_iterate_1(iterations, dev, vals) := block
+  ([newdev, newvals]:least_squares (data, vars, exps, params, vals),
+   print(iteration, iterations, deviation, dev),
+   if (newdev*1.0001>dev and iterations > 2) then [iterations, dev, vals]
+               else least_squares_iterate_1(iterations+1, newdev, newvals)),
+ [initialresidule, firstvals]:least_squares (data, vars, exps, params, vals),
+ least_squares_iterate_1(1, initialresidule, firstvals))$
+
+/* Designed specifically for spherical fits of data.
+   data: data to fit in a matrix form
+
+   xexp, yexp, zexp: expressions, using x, y, z for raw sensor values
+                     and Xn for parameters to estimate.
+   initialvalues: initial values for Xn parameters to estimate.
+
+   returns [iterations, residule, values]
+
+   examples:
+   spherical_fit(m, X0*x+X1, X2*y+X3, X4*z+X5, [1,0,1,0,1,0]);
+   spherical_fit(m, X0*(x-X6), X0*((y-X7)*X1 + X3*(x-X6)),
+                 X0*((z-X8)*X2 + X4*(x-X6) + X5*(y-X7)), [1,1,1,0,0,0,0,0,0]);
+*/
+
+spherical_fit(data, xexp, yexp, zexp, initialvalues) := block
+(makevec(num):=if (num=0) then [] else append (makevec(num-1), [concat(X,num-1)]),
+ exp:xexp^2+yexp^2+zexp^2-1,
+ params:makevec(length(initialvalues)),
+ [iterations, dev, vals]:least_squares_iterate(data, [x,y,z], [exp],
+                                               params, initialvalues),
+ subs:map ("=", params, vals),
+ print("f(x,y,z):="),
+ print(grind(sublis (subs, exp))),
+ print("fc(x,y,z):="),
+ print(grind([sublis (subs, xexp), sublis (subs, yexp), sublis  (subs, zexp)])),
+ [iterations, dev, float(asin(dev) * 180 / %pi), vals])$
+
+/* make it easier to write the equations by sticking the biases in */
+/* 1st order */
+resub(exp) := sublis ([A = (x-X0), B = (y-X1), C = (z-X2)], exp)$
+
+spherical_fit(m,
+resub(X3*(A)),
+resub(X3*(B*X4 + X6*A)),
+resub(X3*(C*X5 + X7*A + X8*B)),
+[38000,20000,-30000,1/47000,1,1,0,0,0]);
+
+/* 3rd order */
+resub2(exp) := sublis ([RX = (A+X9*A^2+X10*A^3), RY = (B+X11*B^2+X12*B^3), RZ = (C+X13*C^2+X14*C^3)], exp)$
+
+spherical_fit(m,
+resub(resub2(X3*RX)),
+resub(resub2(X3*(X4*RY + X6*RX))),
+resub(resub2(X3*(X5*RZ + X7*RX + X8*RY))),
+[38000,20000,-30000,1/47000,1,1,0,0,0,0,0,0,0,0,0]);
+
+/* 5th order */
+resub2(exp) := sublis ([RX = (A+X9*A^2+X10*A^3+X11*A^4+X12*A^5), RY = (B+X13*B^2+X14*B^3+X15*B^4+X16*B^5), RZ = (C+X17*C^2+X18*C^3+X19*C^4+X20*C^5)], exp)$
+
+spherical_fit(m,
+resub(resub2(X3*RX)),
+resub(resub2(X3*(X4*RY + X6*RX))),
+resub(resub2(X3*(X5*RZ + X7*RX + X8*RY))),
+[38000,20000,-30000,1/47000.0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]);
+
+/* 7th order */
+resub2(exp) := sublis ([RX = (A+X9*A^2+X10*A^3+X11*A^4+X12*A^5+X13*A^6+X14*A^7), RY = (B+X15*B^2+X16*B^3+X17*B^4+X18*B^5+X19*B^6+X20*B^7), RZ = (C+X21*C^2+X22*C^3+X23*C^4+X24*C^5+X25*C^6+X26*C^7)], exp)$
+
+spherical_fit(m,
+resub(resub2(X3*RX)),
+resub(resub2(X3*(X4*RY + X6*RX))),
+resub(resub2(X3*(X5*RZ + X7*RX + X8*RY))),
+[38000,20000,-30000,1/47000.0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]);
+
+/* For the calibration function "fc" calculated above,
+   apply it to the accel readings so we can work on calibrating
+   the mag using it */
+normalize(vec):=vec/sqrt(vec.vec)$
+m:maplist (lambda ([row],
+                        append ([first(row)], [second(row)], [third(row)],
+                        normalize(fc (fourth(row), fifth(row), sixth(row))))),
+                       m)$
+
+/* For the next part, we are going to try to use the accelerometer to calibrate
+   even the biases for the magnetometer.  The data has columns, the raw
+   magnetometer data followed by already calibrated accelerometer data.  */
+mag_fit(data, xexp, yexp, zexp, dipvar, initialvalues) := block
+(makevec(num):=if (num=0) then [] else append (makevec(num-1), [concat(X,num-1)]),
+ exp1:xexp^2+yexp^2+zexp^2-1,
+ exp2:[gx,gy,gz].[xexp, yexp, zexp] / sqrt(xexp^2+yexp^2+zexp^2)-dipvar,
+ params:makevec(length(initialvalues)),
+ [iterations, dev, vals]:least_squares_iterate(data, [x,y,z,gx,gy,gz], [exp1, exp2],
+                                               params, initialvalues),
+ subs:map ("=", params, vals),
+ print("f(x,y,z):="),
+ print(grind(sublis (subs, exp))),
+ print("fc(x,y,z):="),
+ print(grind([sublis (subs, xexp), sublis (subs, yexp), sublis  (subs, zexp)])),
+ [iterations, dev, float(asin(dev) * 180 / %pi), vals])$
+
+/* first order */
+mag_fit(m,
+resub(X3*(   A + X6*B +  X9*C)),
+resub(X3*(X4*B + X7*A + X10*C)),
+resub(X3*(X5*C + X8*A + X11*B)),
+X12,
+[38000,20000,-30000,1/47000,1,1,0,0,0,0,0,0,.91]);
+
+resub2(exp) := sublis ([RX = (A+X12*A^2+X13*A^3), RY = (B+X14*B^2+X15*B^3), RZ = (C+X16*C^2+X17*C^3)], exp)$
+
+mag_fit(m,
+resub(resub2(X3*(RX    + X6*RY +  X9*RZ))),
+resub(resub2(X3*(X4*RY + X7*RX + X10*RZ))),
+resub(resub2(X3*(X5*RZ + X8*RX + X11*RY))),
+X18,
+[38000,20000,-30000,1/47000.0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,.91]);
+
+[4, 0.00131657526151728, .07543422768885999, 
+[37570.23285010873, 20735.4474561328, - 29922.02945569846, 
+2.0165962506368684E-5, .9664462613678508, 1.048327637433216, 
+- .07052422073272013, - .03857189981633676, .05495156901047869, 
+4.523020138404926E-4, 2.0594320698021937E-4, - .06790735338257285, 
+.9198055926913415]]
+
+[4, .001282311758579778, .07347107192166356, 
+[37604.56528155115, 20746.86971911488, - 29936.22138281167, 
+2.0174909725976742E-5, .9636277366004219, 1.047856152146882, 
+- .07042837218122502, - .03851965756987778, .05490501413303197, 
+4.767803803068261E-4, 1.3013769125346675E-4, - .06789187346588217, 
+2.4621957514005796E-8, - 8.091157710697956E-14, 6.202423489877434E-9, 
+1.126459637205637E-12, - 9.369232276654669E-9, 6.145623193767207E-14, 
+.9198932816394276]]
+
+[4, .001583094121533706, .09070464962301444, 
+[37596.06778816164, 20730.66596462027, - 29929.48949689293, 
+2.0190674893454005E-5, .9637046222209028, 1.046188848544016, 
+- 0.0703790997424718, - .03845878325027832, .05500441062733098, 
+5.050968397556338E-4, 1.3577188804485218E-4, - .06792040754834351, 
+1.8806935705320135E-8, - 4.998826799890281E-13, - 1.3919309271317945E-9, 
+7.363382090590829E-13, - 5.202558331697436E-9, 4.135180502973642E-13, 
+.9198628889841964]]
+
+[4, .002070510787572976, 0.118631614326926, 
+[37566.29494267451, 20731.60207553502, - 29918.40447513797, 
+2.0054712701084634E-5, .9745016758486259, 1.054067868104079, 
+- .1117256938941827, .05582249558147461, - .06821850194778868]]
+
+[4, 0.00203521344451759, .1166092212802899, 
+[37589.3763942157, 20718.89504992087, -29927.02153710714, 
+2.0099508803265004E-5, .9712503075378506, 1.049872120065424, 
+- .1116468444356797, .05587859368391299, - .06823595200725911, 
+1.4021904681210454E-8, - 9.791658549238696E-13, - 6.792693190953202E-9, 
+4.504834178198414E-13, - 3.476533685687671E-9, 8.718536403500654E-13]]

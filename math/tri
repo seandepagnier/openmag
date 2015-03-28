@@ -1,0 +1,9 @@
+a*x^2 + b*y^2 + c*z^2 + d*x*y + e*y*z + f*z*x = 1
+
+x = p*x'
+y = q*x' + r*y'
+z = s*x' + t*y' + u*z'
+
+x' = x/p
+y' = (y - q*x') / r
+z' = (z - s*x' - t*y') / u

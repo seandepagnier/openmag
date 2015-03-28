@@ -1,0 +1,5 @@
+@item mag
+@itemize @bullet
+@item range - The ADC which reads from the magnetic sensors supports variable gain.  This means that with reduced precision, you can measure over a larger range.  The range for the magnetometer, can be one of 6.4, 3.2, 1.6, or 0.8.  This is the approximate range in gauss of the magnetic field that can be measured, the actual range that can be measured without saturation varies from unit to unit depending on the bias of the sensor.
+@item bandwidth - The magnetometer can be read at different speeds.  This is apparent when looking at the inputrate and noise of the mag after setting the bandwidth.  The faster data is read, the higher the noise is.  Currently there are 3 settings: fast (64hz), normal (13hz), and slow (4.5hz)
+@end itemize

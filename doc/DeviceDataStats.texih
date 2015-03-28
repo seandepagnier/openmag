@@ -1,0 +1,10 @@
+@node stats
+@section stats
+The accessors relevant:
+@itemize @bullet
+@item freeram - unused ram from the total of 8192 bytes, useful for debugging.
+@item magsaturated - view which (if any) axes of the magnetometer have saturated
+@item runtime - how long the device has been running since powerup in seconds
+@item mainloopfreq - how fast the main loop is running in hz, very useful for profiling.
+@item watchdog_resets - If the device crashes or locks up, after a timeout it automatically resets, but this counter gets incremented.  If this value is ever non-zero, then a software bug has occured.
+@end itemize

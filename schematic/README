@@ -1,0 +1,8 @@
+To modify the schematics you will need geda installed, see:
+
+http://geda.seul.org
+
+To modify the layouts you will need pcb installed.
+
+Packages for geda and pcb are available on many systems.
+

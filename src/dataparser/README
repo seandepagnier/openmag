@@ -1,0 +1,10 @@
+the dataparser program can operate in compilation or link mode.
+
+In compilation mode, there are no arguments, input is a preprocessed file read
+from stdin, output is the generated code output to stdout.  The generated code
+is not yet ready to be compiled, but must be linked using dataparser.  To
+combine multiple generated files into a library, simple concatination is
+allowed.
+
+In link mode the arguments are one or more files to combine, the final output
+is always datagen.c and datagen.h which can be compiled by the main program

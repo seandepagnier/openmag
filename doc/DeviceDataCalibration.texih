@@ -1,0 +1,33 @@
+@node calibration
+@section calibration
+@itemize @bullet
+@item inclination -- the inclination, can be set by the user to speed up calibration
+@item declination -- the angle between magnetic and true north
+@item fieldstrength -- the strength of the field in gauss, used to make the calibrated magnetometer output correct in gauss
+@item boxalignment -- the rotation from sensor coordinates to box coordinates
+@item laseralignment -- the rotation from sensor coordinates to laser coordinates
+@item debugging -- print information related to standard calibration
+@item fastdebugging -- print information related to fast calibration
+@item accel -- Computes 3rd order ellipsoid fit for the accelerometer
+@item accelfast -- Computes biases and scale factor for the accelerometer
+@item mag -- Computes biases, scale factors, and cross-coupling coefficients
+@item magalign -- computes dip angle as well as the rotation from magnetometer to accelerometer coordinates.  The rotation is displayed as a vector to rotate around, where the magnitude is the angle to rotate.
+@item magdip -- alternate calibration for the magnetometer which uses a 3x3 matrix multiplication.  It can be enabled by setting settings/usemagdip to true.
+@item magfast -- fast mag calibration which only computes bias and scale factor.  This is used by mouse mode.  The calibration is calculated quickly without being as precise and does not require the device to stop moving.
+@item stillpoints -- The stillpoints used for calibration.  These points can be applied to either accel or mag to perform calibration.  See the User Guide for more details.
+@end itemize
+ 
+There are 6 types of calibration:
+@itemize @bullet
+@item accel - used for accelerometer, need accurate calibration to compute pitch and roll
+@item mag - magnetometer, needed for accurate magnetometer readings
+@item magalign - this requires both accel and mag to calculate, it is the misalignment of the magnetic sensors in relation to the accelerometers.  It corrects errors in yaw calculation by as much as 5 degrees.
+@item magfast are - this just computes biases for the magnetometer quickly, it is used for mouse movement because the more precise magnetometer calibration updates slower, can be used when relative movement is better than absolute.
+Each type is a directory with:
+@end itemize
+
+@itemize @bullet
+@item calibration - the current calibration, you may clear it with the clear operator
+@item autocalenabled - specifies if true, calibration can continously update
+@item debugging - enable this to automatically output calibration when it is updated
+@end itemize
